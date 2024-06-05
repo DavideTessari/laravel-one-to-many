@@ -21,7 +21,7 @@
 
                     <p>Benvenuto 🤗 {{ $user->name }}.</p>
 
-                    <p>Ti seregistrato correttamente con la email: {{ $user->email }}</p>
+                    <p>Ti sei registrato correttamente con la email: {{ $user->email }}</p>
                 </div>
             </div>
         </div>
