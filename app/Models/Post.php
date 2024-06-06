@@ -9,5 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'client_name', 'summary'];
+    protected $fillable = ['name', 'slug', 'client_name', 'summary', 'cover_image', 'type_id'];
+
+    public function type() {
+        return $this->belongsTo(Type::class);
+    }
 }

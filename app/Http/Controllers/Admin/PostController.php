@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Type;
 
 class PostController extends Controller
 {
@@ -18,7 +19,9 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('admin.posts.create');
+        $types = Type::all();
+
+        return view('admin.posts.create', compact('types'));
     }
 
     public function store(Request $request)
@@ -46,10 +49,10 @@ class PostController extends Controller
         return view('admin.posts.show', compact('post'));
     }
 
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post'));
+        $types = Type::all();
+        return view('admin.posts.edit', compact('post', 'types'));
     }
 
     public function update(Request $request, $id)
@@ -107,6 +110,7 @@ class PostController extends Controller
                 'client_name.required' => 'Il campo client_name è obbligatorio',
                 'cover_image.image' => 'Il file deve essere un\'immagine',
                 'cover_image.max' => 'L\'immagine non può superare i 2MB',
+                'type_id' => 'nullable|exists:types,id'
             ]
         )->validate();
     }
