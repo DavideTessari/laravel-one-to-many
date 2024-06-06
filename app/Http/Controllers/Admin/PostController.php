@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Type;
+use Illuminate\Support\Facades\Validator; 
 
 class PostController extends Controller
 {
@@ -20,7 +21,6 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::all();
-
         return view('admin.posts.create', compact('types'));
     }
 
@@ -100,6 +100,7 @@ class PostController extends Controller
                 'client_name' => 'required|string|max:255',
                 'summary' => 'nullable|string',
                 'cover_image' => 'nullable|image|max:2048',
+                'type_id' => 'nullable|exists:types,id'
             ],
             [
                 'name.required' => 'Il campo name è obbligatorio',
@@ -110,7 +111,7 @@ class PostController extends Controller
                 'client_name.required' => 'Il campo client_name è obbligatorio',
                 'cover_image.image' => 'Il file deve essere un\'immagine',
                 'cover_image.max' => 'L\'immagine non può superare i 2MB',
-                'type_id' => 'nullable|exists:types,id'
+                'type_id.exists' => 'Il tipo selezionato non esiste'
             ]
         )->validate();
     }
