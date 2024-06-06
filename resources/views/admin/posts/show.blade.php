@@ -11,13 +11,15 @@
             <p><strong>Name:</strong> {{ $post->name }}</p>
             <p><strong>Slug:</strong> {{ $post->slug }}</p>
             <p><strong>Client Name:</strong> {{ $post->client_name }}</p>
-            <p><strong>Summary:</strong> {!! $post->summary !!}</p>
-            <p><strong>Created At:</strong> {{ $post->created_at }}</p>
+            <p><strong>Type:</strong> {{ $post->type ? $post->type->name : 'none'}}</p>
             @if ($post->cover_image)
-                <div class="my-4">
-                    <img src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->name }}" class="img-fluid">
+                <div>
+                    <img src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->name }}">
                 </div>
             @endif
+            <p><strong>Summary:</strong> {!! $post->summary !!}</p>
+            <p><strong>Created At:</strong> {{ $post->created_at }}</p>
+            <p><strong>Update At:</strong> {{ $post->updated_at }}</p>
         </div>
         <div class="card-footer">
             <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning my-2">Edit</a>
